@@ -1,4 +1,4 @@
-package org.example.expert.domain.auth.controller;
+package org.example.expert.domain.user.entity.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signin")
-    public SigninResponse signin(@Valid @RequestBody SigninRequest signinRequest) {
+    public SigninResponse signIn(@Valid @RequestBody SigninRequest signinRequest) {
         return authService.signin(signinRequest);
     }
 }
