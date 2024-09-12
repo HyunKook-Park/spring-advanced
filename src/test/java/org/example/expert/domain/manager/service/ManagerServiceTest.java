@@ -151,6 +151,7 @@ class ManagerServiceTest {
         // given
         AuthUser authUser = new AuthUser(1L, "a@a.com", UserRole.USER);
         User user = User.fromAuthUser(authUser);
+
         long todoId = 1L;
         long managerUserId = 2L;
         Todo todo = new Todo("Test Title", "Test Contents", "Sunny", user);
