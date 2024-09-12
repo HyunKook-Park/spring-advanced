@@ -93,7 +93,7 @@ class CommentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
                 .requestAttr("id", 1L)
-                .requestAttr("email", "AAA@SDF.com")
+                .requestAttr("email", "AAA@SDDF.com")
                 .requestAttr("userRole", "USER"))
                 .andExpect(status().isOk())
                 .andDo(print());

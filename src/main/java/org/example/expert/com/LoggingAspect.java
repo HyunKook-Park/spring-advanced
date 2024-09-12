@@ -72,7 +72,7 @@ public class LoggingAspect {
         log.info("::: userId {} ", userId, "::: email {} ", email, "::: userRole {} ", userRole);
 
         try {
-            log.info("::: AFTER RETURNING :::");
+            log.info("::: BEFORE RETURNING :::");
             return joinPoint.proceed();
         } catch (Exception e){
             log.info("::: AFTER THROWING :::");
