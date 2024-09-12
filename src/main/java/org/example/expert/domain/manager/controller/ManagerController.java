@@ -20,7 +20,6 @@ import java.util.List;
 public class ManagerController {
 
     private final ManagerService managerService;
-    private final JwtUtil jwtUtil;
 
     @PostMapping("/todos/{todoId}/managers")
     public ResponseEntity<ManagerSaveResponse> saveManager(
@@ -28,13 +27,11 @@ public class ManagerController {
             @PathVariable long todoId,
             @Valid @RequestBody ManagerSaveRequest managerSaveRequest
     ) {
-        return ResponseEntity.ok(managerService.saveManager(authUser, todoId, managerSaveRequest));
-    }
+        return ResponseEntity.ok(managerService.saveManager(authUser, todoId, managerSaveRequest));}
 
     @GetMapping("/todos/{todoId}/managers")
     public ResponseEntity<List<ManagerResponse>> getMembers(@PathVariable long todoId) {
-        return ResponseEntity.ok(managerService.getManagers(todoId));
-    }
+        return ResponseEntity.ok(managerService.getManagers(todoId));}
 
     @DeleteMapping("/todos/{todoId}/managers/{managerId}")
     public void deleteManager(
@@ -42,6 +39,5 @@ public class ManagerController {
             @PathVariable long todoId,
             @PathVariable long managerId
     ) {
-        managerService.deleteManager(authUser, todoId, managerId);
-    }
+        managerService.deleteManager(authUser, todoId, managerId);}
 }
