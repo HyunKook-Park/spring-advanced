@@ -7,6 +7,7 @@ import org.example.expert.config.MockTestFilter;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.todo.controller.TodoController;
 import org.example.expert.domain.user.dto.request.UserChangePasswordRequest;
+import org.example.expert.domain.user.dto.request.UserRoleChangeRequest;
 import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.entity.User;
 import org.example.expert.domain.user.enums.UserRole;
@@ -95,6 +96,26 @@ class UserControllerTest {
                         .requestAttr("userRole", "USER"))
                 .andExpect(status().isOk())
                         .andDo(print());
+    }
+
+    // userAdminController 테스트
+    @Test
+    @DisplayName("userRole 변경")
+    void userRole_변경() throws Exception {
+        // given
+        long userId = 1L;
+        UserRoleChangeRequest request = new UserRoleChangeRequest("ADMIN");
+
+        // when & then
+        mockMvc.perform(patch("/admin/users/{userId}", userId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .requestAttr("userId", 1L)
+                        .requestAttr("email","a@a.com")
+                        .requestAttr("userRole", "USER"))
+                .andExpect(status().isOk())
+                .andDo(print());
+
     }
 
 }
