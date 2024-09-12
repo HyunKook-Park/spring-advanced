@@ -1,2 +1,2 @@
 # SPRING ADVANCED
-![Coverage.PNG](..%2F..%2FUsers%2Fu%2FDesktop%2FCoverage.PNG)
+![Coverage](https://github.com/user-attachments/assets/987e570d-c556-4338-a543-a7041a7b335f)
