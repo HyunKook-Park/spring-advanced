@@ -7,6 +7,7 @@ import org.example.expert.config.MockTestFilter;
 import org.example.expert.domain.comment.dto.request.CommentSaveRequest;
 import org.example.expert.domain.comment.dto.response.CommentResponse;
 import org.example.expert.domain.comment.dto.response.CommentSaveResponse;
+import org.example.expert.domain.comment.service.CommentAdminService;
 import org.example.expert.domain.comment.service.CommentService;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.user.dto.response.UserResponse;
@@ -34,13 +35,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = {CommentController.class},
+@WebMvcTest(controllers = {CommentController.class, CommentAdminController.class},
         excludeFilters = {
         @ComponentScan.Filter(
                 type = FilterType.ASSIGNABLE_TYPE,
@@ -58,6 +59,9 @@ class CommentControllerTest {
     private WebApplicationContext context;
     @MockBean
     UserService userService;
+
+    @MockBean
+    private CommentAdminService commentAdminService;
 
     @MockBean
     private CommentService commentService;
@@ -116,4 +120,23 @@ class CommentControllerTest {
                 .requestAttr("userRole", "USER"))
                 .andExpect(status().isOk());
     }
+
+    // commentAdminController 테스트
+    @Test
+    @DisplayName("댓글 삭제")
+    void 댓글_삭제() throws Exception {
+        // given
+        long commentId = 1L;
+
+        // when & then
+        mockMvc.perform(delete("/admin/comments/{commentId}", commentId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .requestAttr("id", 1L)
+                        .requestAttr("email", "AAA@SDF.com")
+                        .requestAttr("userRole", "USER"))
+                .andExpect(status().isOk());
+
+        verify(commentAdminService).deleteComment(commentId);
+    }
+
 }
